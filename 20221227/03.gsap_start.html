@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <title>GSAP_START</title>
+  <style>
+    * {
+      user-select: none;
+      /* standard syntax */
+      -webkit-user-select: none;
+      /* for Chrome、Safari */
+      -moz-user-select: none;
+      /* for Mozilla、Firefox */
+    }
+
+    body {
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .container-fluid {
+      perspective: 100px;
+      perspective-origin: center center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid vh-100">
+    <!-- 建立很多小星星在這邊~ -->
+  </div>
+  <!-- Script 匯入 -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js'></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./Gsap/gsap.js"></script>
+
+  <Script>
+    // 建立小星星的 function
+    function createStar(starCount) {
+      // 先用 for 跑迴圈
+      for (let i = 0; i < starCount; i++) {
+        // 在 .container-fluid 後面新增很多 star 的 div
+        $('.container-fluid').append(`<div class='star'>★</div>`)
+        // 設定每顆星星的隨機位置 以及給他一個顏色
+        $('.star').each(function (index, element) {
+          $(this).css({
+            position: 'absolute',
+            left: gsap.utils.random(0, 100) + '%',
+            top: gsap.utils.random(0, 100) + '%',
+            color: 'white',
+          })
+        })
+      }
+    }
+
+    createStar(60);
+
+    // 用星星來做動畫
+    gsap.to('.star', {
+      color: 'rgba(random(0,255),random(0,255),random(0,255))',
+      TransformOrigin: 'center',
+      fontSize: 'random(12,50)',
+      filter: `drop-shadow(0 0 30px rgba(random(0,255),random(0,255),random(0,255),0.5)`,
+      x: 'random(-50,50)',
+      y: 'random(-50,50)',
+      left: '+=random(-10,10)%',
+      rotation: '+=360',
+      scale: 'random(1,2)',
+
+      duration: 'random(5,10)',
+      delay: 'random(0.5)',
+      repeat: -1,
+      repeatRefresh: true,
+
+      ease: 'back',
+      stagger: 0.1,
+    })
+  </Script>
+</body>
+
+</html>

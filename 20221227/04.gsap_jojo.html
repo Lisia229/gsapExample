@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <title>JOJO</title>
+  <style>
+    /* 禁止使用者反白 選取 */
+    * {
+      user-select: none;
+      /* standard syntax */
+      -webkit-user-select: none;
+      /* for Chrome、Safari */
+      -moz-user-select: none;
+      /* for Mozilla、Firefox */
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      background: url(./images/jojo/bg.png) no-repeat center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #wrap {
+      overflow: hidden;
+      width: 1284px;
+      height: 720px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap"></div>
+  <!-- <img class="img" src="./images/jojo/jojo_1.png" width="214" height="120"> -->
+  <!-- Script 匯入 -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js'></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./Gsap/gsap.js"></script>
+
+  <script>
+    function loadImage() {
+      for (let i = 1; i <= 36; i++) {
+        wrap.innerHTML += `<img class="img" src="./images/jojo/jojo_${i}.png" width="214" height="120">`
+      }
+    }
+
+    loadImage()
+
+    let flytoggle = 'out'
+    document.addEventListener('click', function () {
+      if (flytoggle == 'out') {
+        gsap.to('.img', {
+          x: '100vw',
+          rotation: 3600,
+          duration: 1,
+          ease: 'back.inOut(6)',
+          stagger: {
+            each: 0.1,
+            from: 'end',
+          },
+          onComplete() {
+            setTimeout(() => {
+              flytoggle = 'in'
+            }, 300)
+          }
+        })
+      } else {
+        gsap.to('.img', {
+          x: '0',
+          rotation: 0,
+          duration: 0.5,
+          ease: 'ealastic.inOut(4)',
+          stagger: {
+            each: 0.1,
+            from: 'center',
+          },
+          onComplete() {
+            setTimeout(() => {
+              flytoggle = 'out'
+            }, 300)
+          }
+        })
+      }
+    })
+
+
+  </script>
+</body>
+
+</html>

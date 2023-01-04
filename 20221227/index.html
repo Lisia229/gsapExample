@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <title>GSAP - tween</title>
+  <style>
+    body {
+      padding-bottom: 200px;
+    }
+
+    h3,
+    h4 {
+      margin-bottom: 20px;
+    }
+
+    .wrap {
+      width: 600px;
+      height: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .box1,
+    .box2,
+    .box3,
+    .box4,
+    .box5,
+    .box6,
+    .box7,
+    .box8,
+    .box9,
+    .box10,
+    .box11 {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 5px;
+      background: #000;
+    }
+
+    .box2 {
+      background: red;
+    }
+
+    .box3 {
+      background: green;
+    }
+
+    .box4 {
+      background: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>GSAP</h1>
+    <h2>gsap 全域物件</h2>
+    <ul>
+      <li>使用 gsap.to()、gsap.from()、gsap.fromTo() 三種建立 tween 補間動畫</li>
+      <li>使用 gsap.timeline() 建立時間軸，他是補間動畫或其他時間軸的容器</li>
+    </ul>
+
+    <hr>
+
+    <h2>tween(補間動畫)</h2>
+
+    <h3>1.選擇目標</h3>
+    <!-- 把它當成準備上場表演的演員 -->
+    <div class="box1"></div>
+
+    <hr>
+
+    <h3>2.群組選擇</h3>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box2"></div>
+    <div class="box3"></div>
+    <div class="box3"></div>
+    <div class="box3"></div>
+    <div class="box4"></div>
+    <div class="box4"></div>
+    <div class="box4"></div>
+
+    <hr>
+
+    <h3>3.絕對數值</h3>
+    <div class="box5"></div>
+
+    <hr>
+
+    <h3>4.相對數值</h3>
+    <div class="box6"></div>
+
+    <hr>
+
+    <h3>5.隨機函式值</h3>
+    <div class="box7"></div>
+    <div class="box7"></div>
+    <div class="box7"></div>
+
+    <hr>
+
+    <h3>6.函式作為值</h3>
+    <div class="box8"></div>
+    <div class="box8"></div>
+    <div class="box8"></div>
+
+    <hr>
+
+    <h3>7.設定css屬性</h3>
+    <div class="box9" style="margin: auto;"></div>
+    <p id="word">
+      描述資格吸收組合我很迅速中間大家證券承擔步驟，生活案件但在穿著豐原，告知相同也就能否著名站長日常具。 描述資格吸收組合我很迅速中間大家證券承擔步驟，生活案件但在穿著豐原，告知相同也就能否著名站長日常具。
+      描述資格吸收組合我很迅速中間大家證券承擔步驟，生活案件但在穿著豐原，告知相同也就能否著名站長日常具。
+    </p>
+
+    <hr>
+
+    <h3>8.動畫屬性</h3>
+    <div class="box10"></div>
+    <!-- <button id="play">play</button>
+    <button id="pause">pause</button> -->
+    <hr>
+
+    <h3>9.keyframes 關鍵影格</h3>
+    <P>讓單一補間動畫具有更多連續動作</P>
+    <div class="box11"></div>
+
+  </div>
+
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js'></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./Gsap/gsap.js"></script>
+
+  <script>
+    // 先抓取物件 選擇目標----------------------------------------------------------------
+    const b1 = document.querySelector('.box1')
+    // 參數一為目標，支援 CSS 選擇器字串(建議)，querySelecter、jQuery...
+    // 參數二 為目標設定補間動畫的屬性
+    // tween1 補間動畫實體
+    const tween1 = gsap.to(b1, {
+      x: 500, // translateX
+      duration: 3 //持續時間
+    })
+
+    // 2.群組選擇------------------------------------------------------------------------
+    // 可以直接選取
+    const tween2 = gsap.to('.box2,.box3,.box4', {
+      x: 500, // translateX
+      duration: 3 //持續時間
+    })
+
+    // 3.絕對數值------------------------------------------------------------------------
+    // 可以直接選取
+    gsap.to('.box5', {
+      // x: 500, 絕對數值無單位
+      // x: '500px', // 絕對數值有單位字串
+      duration: 3, // 持續時間
+      xPercent: 100 // 相當於 x: '100%' => translateX(100%)
+    })
+
+    // 4.相對數值------------------------------------------------------------------------
+    let mavar = "300"
+    gsap.to('.box6', {
+      // x: '+=200',
+      x: `+=${mavar}`, // 可以自訂變數
+      repeat: 2, //總動畫為 起始動畫 + repeat = 共 3 次
+      repeatRefresh: true, // 會記錄上面的動作 重複疊加 x+200px 三次 
+      duration: 3
+    })
+
+    // 5.隨機函數值--------------------------------------------------------------------
+    /* gsap.to('.box7', {
+      x: 'random(0,1000)',
+      // x: 'random(0,1000,500)', 隨機跳出可以被 500 整除的數字(包括0)
+      background: 'random([red,green,blue])', //隨機背景
+      border: '7px random([solid,dashed,double]) rgba([random(0,255),random(0,255),random(0,255)])', //隨機邊框
+      marginBottom: 100,
+      duration: 3 
+    })
+    */
+
+    // 6.函數作為值--------------------------------------------------------------------
+    gsap.to('.box8', {
+      // 索引、動畫元素、參與動畫元素的陣列
+      x: function (index, target, targets) {
+        // console.log(index, target, targets);
+        return 100 * (index + 1)
+      }
+    })
+
+    // 7.設定css屬性--------------------------------------------------------------------
+    gsap.to('.box9', {
+      // 設定 css 屬性
+      x: '+=random(-100,100)',
+      y: '+=random(-100,100)',
+      rotation: '+=random(0,720)', //旋轉 等於 rotate 個別設定 rotateX、rotateY
+      scale: 1.5, // 縮放 等於 scale 個別設定 scaleX、scaleY
+      // width: 100,
+      // height: 100, // +=random(0,100)'
+      border: '2px solid red',
+      boxShadow: '0px 5px 10px rgba(255,0,0,1)',
+      background: 'transparent',
+      backdropFilter: 'blur(5px)', //背景變模糊
+      opacity: 'random(0.1,1)',
+      filter: 'hue-rotate(90deg)',
+
+      // 動畫屬性
+      repeat: 5,
+      repeatRefresh: true,
+      duration: 2
+    })
+
+    const word = gsap.to('#word', {
+      color: 'rgba([random(0,255),random(0,255),random(0,255)])',
+      fontWeight: 'bold',
+      fontSize: '1.5rem',
+      lightHeight: 2,
+
+      repeat: 5,
+      repeatRefresh: true,
+      duration: 2
+    })
+
+    // 8.設定動畫屬性
+    const tween8 = gsap.to('.box10', {
+      background: 'random([red,green,blue,pink])',
+      x: 1000,
+      duration: 0.5,
+      delay: 0, // 延遲時間
+      yoyo: true, // 重複時像溜溜球往返
+      repeat: -1, // 重複次數無限次
+      repeatDelay: 1, // repeat 重複前的延遲時間
+      /* 
+        repeatRefresh 設定 true 時，會記錄前一次的狀態再執行，
+        而不會回到初始狀態，配合屬性變動值(例如相對)，可以讓動畫更生動。
+      */
+      repeatRefresh: true,
+      /* 
+        https://greensock.com/docs/v3/Eases
+      */
+      // ease: "elastic.out(1, 0.3)"
+      ease: 'steps(1)',
+      yoyoEase: 'steps(1)'
+    })
+
+    // 9. keyframes 關鍵影格
+    gsap.to('.box11', {
+      repeat: -1, // 重複循環
+      keyframes: [
+        {
+          x: 200,
+          rotation: 360,
+          duration: 1,
+          delay: 1,
+          ease: 'elastic',
+        },
+        {
+          y: 100,
+          scale: 0.1,
+          duration: 1,
+          delay: 1,
+          ease: 'steps(3)'
+        },
+        {
+          x: 0,
+          rotation: -360,
+          scale: 1.5,
+          duration: 1,
+          delay: 1,
+          ease: 'elastic',
+        },
+        {
+          y: 0,
+          scale: 1,
+          rotation: -360,
+          duration: 1,
+          delay: 1,
+          ease: 'steps(3)'
+        },
+      ]
+    })
+  </script>
+</body>
+
+</html>

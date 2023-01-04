@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/bootstrap.css">
+  <title>Document</title>
+  <style>
+    body {
+      padding-bottom: 200px;
+    }
+
+    h3,
+    h4 {
+      margin-bottom: 20px;
+    }
+
+    .wrap {
+      width: 600px;
+      height: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .box1,
+    .box2,
+    .box3,
+    .box4,
+    .box5,
+    .box6,
+    .box7 {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 5px;
+      margin-right: 10px;
+      background: white;
+    }
+
+    .box1,
+    .box5,
+    .box6{
+      background: pink;
+    }
+
+    .box7 {
+      background: lightblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h3>10.交錯效果</h3>
+    <h4>基礎設定</h4>
+    <div class="wrap">
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+      <div class="box1"></div>
+    </div>
+
+    <h3>11.列欄交錯效果</h3>
+    <h4>基礎設定</h4>
+    <div class="wrap">
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+      <div class="box2"></div>
+    </div>
+
+    <hr>
+
+    <h4>11.動畫狀態與事件函式</h4>
+    <div class="box5"></div>
+    <div class="progress mb-3">
+      <div class="progress-bar"></div>
+    </div>
+    <button id="btn1">play 播放</button>
+    <button id="btn2">pause 暫停</button>
+    <button id="btn3">reversed 反轉</button>
+
+    <hr>
+
+    <h4>12. gsap.from() 與 gsap.fromTo()</h4>
+    <h4>gsap.from()</h4>
+    <p>指定補間動畫從 設定狀態 到 目前狀態，例如：進場動畫</p>
+    <div class="box6"></div>
+
+    <h4>gsap.fromTo()</h4>
+    <p>只定補間動畫從 from 設定狀態 1 到 to 設定狀態 2</p>
+    <div class="box7"></div>
+
+    <div class="box6">
+      <div class="box7"></div>
+    </div>
+  </div>
+  <!-- Script 匯入 -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.js'></script>
+  <script src="./js/bootstrap.bundle.min.js"></script>
+  <script src="./Gsap/gsap.js"></script>
+
+  <!-- Script -->
+  <script>
+    // 10.交錯效果--------------------------------------------------------------
+    gsap.to('.box1', {
+      y: 100,
+      delay: 0.5,
+      duration: 1,
+      stagger: 0.1, // 交錯效果 每個元素動畫交錯的時間
+      stagger: {
+        each: 0.5, // 每個交錯 0.5 秒下來
+        from: 'start', // 從哪裏開始交錯 // from:'start' 'center' 'end' 'random' 'edges'
+        /* 
+          https://greensock.com/docs/v3/Staggers
+        */
+      },
+      rotation: 360,
+    })
+
+    // 11.列欄交錯效果---------------------------------------------------------
+    gsap.to('.box2', {
+      background: 'rgba([random(0,255),random(0,255),random(0,255)])',
+      repeat: -1,
+      keyframes: [
+        {
+          duration: 1,
+          rotation: 360,
+          scale: 0.1,
+          y: 20,
+          ease: "power1.inOut",
+          stagger: {
+            grid: [1, 10],
+            from: "end",
+            amount: 1.5,
+          },
+        },
+        {
+          duration: 1,
+          scale: 1,
+          y: 20,
+          rotation: -360,
+          ease: "power1.inOut",
+          stagger: {
+            grid: [1, 10],
+            from: "end",
+            amount: 1.5,
+          },
+        },
+      ]
+    })
+
+    //11.動畫狀態與事件函式------------------------------------------
+    const tween = gsap.to('.box5', {
+      x: '65vw',
+      duration: 5,
+      // repeat: -1,
+      yoyo: true,
+      paused: true,
+      reversed: false,
+      ease: 'none',
+      onStart: function (param1, param2) {
+        console.log(param1, param2)
+        console.log(this.targets(), this.targets()[0])
+      },
+      onStartParams: ['動畫開始了', 'lisia'],
+      onComplete: function (param1, param2) {
+        console.log(param1, param2)
+      },
+      onCompleteParams: ['動畫結束了', 'lisia'],
+
+      // 動畫更新
+      onUpdate(param1, param2) {
+        console.log(this.progress())
+        $('.progress-bar').css({
+          width: `${Math.floor(this.progress().toFixed(2) * 100)}%`,
+          background: 'lightblue',
+        })
+      },
+      onUpdateParams: ['動畫結束了', 'lisia'],
+    })
+
+    $('#btn1').on('click', function () {
+      tween.play()
+    })
+
+    $('#btn2').on('click', function () {
+      console.log('paused:' + tween.paused())
+      // tween.pause() 按一個按鈕是一個動作
+      tween.paused(!(tween.paused()))
+      // 可以讓他在同一顆按鈕 開始和暫停
+    })
+
+    $('#btn3').on('click', function () {
+      console.log('reversed:' + tween.reversed())
+      tween.reversed(!(tween.reversed()))
+      // 可以讓他在同一顆按鈕 往左或往右
+    })
+
+    // 12. gsap.from() 
+    gsap.from('.box6', {
+      x: -500,
+      duration: 1
+    })
+
+    // gsap.fromTo() 會設定兩組的值
+    gsap.fromTo('.box7',
+      // 從 x:1000 -> x:-10
+      {
+        x: 0,
+      },
+      {
+        x: 500,
+        // duration、delay 要設定在第二組才會有效果 
+        duration: 3,
+        delay: 1,
+      }
+    )
+
+  </script>
+
+</body>
+
+</html>
